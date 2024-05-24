@@ -1,9 +1,8 @@
-// components/Tabela.js
 import React from 'react';
 
 interface TableProps {
   headers: string[];
-  rows: { [key: string]: string }[];
+  rows: Array<{ [key: string]: string }>;
 }
 
 export const Table: React.FC<TableProps> = ({ headers, rows }) => {
@@ -23,11 +22,11 @@ export const Table: React.FC<TableProps> = ({ headers, rows }) => {
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {rows.map(row => (
+          {rows.map((row, index) => (
             <tr key={row.id}>
               {headers.map(header => (
-                <td key={header} className="px-6 py-4 whitespace-nowrap">
-                  {row[header] ?? ''}
+                <td key={`${header}-${index}`} className="px-6 py-4 whitespace-nowrap" data-testid={`cell-${header}-${index}`}>
+                  {row?.[header] ?? ''}
                 </td>
               ))}
             </tr>
